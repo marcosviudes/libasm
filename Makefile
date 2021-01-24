@@ -5,16 +5,18 @@
 
 NAME		= libasm.a
 TEST_NAME	= test
-AR			= ar rc
-CC 			= gcc
+AR  		= ar
+ARFLAGS		= rc
+CC  		= gcc
 CFLAGS		:= #-Wall -Wextra -Werror -Wpedantic -O3
 NASM		= nasm
 NFLAGS		:= -f macho64
 DFLAGS		:= -g
-RM			:= rm -rf
+RM  		:= rm -rf
 
 SRC_PATH	= src/
-SRCS		= ft_strlen.s
+SRCS		= ft_strlen.s \
+				ft_strcpy.s
 OBJS		= $(SRCS:.s=.o)
 MAIN		= main.c
 
@@ -22,9 +24,11 @@ MAIN		= main.c
 ### RULES
 #####################################
 
-$(NAME):
-	@$(NASM) $(NFLAGS) $(SRCS)
-	@$(AR) $(NAME) $(OBJS)
+%.o : %.s
+	$(NASM) $(NFLAGS) $< -o $@
+
+$(NAME): $(OBJS)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 	@echo "objs and $(NAME) created"
 all: $(NAME)
 
