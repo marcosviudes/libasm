@@ -47,7 +47,8 @@ run:	test
 	@echo "Running test\n"
 	@clear echo "\n"
 	@./test
-
+debug:
+	@$(CC) $(DFLAGS) $(NAME) $(MAIN) -o $(TEST_NAME) -D DEBUG=1
 re: fclean all
 
 .PHONY:	all clean fclean re debug
