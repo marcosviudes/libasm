@@ -6,7 +6,7 @@
 /*   By: mviudes <mviudes@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:14:04 by mviudes           #+#    #+#             */
-/*   Updated: 2021/02/19 14:57:38 by mviudes          ###   ########.fr       */
+/*   Updated: 2021/03/02 12:02:39 by mviudes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,29 @@ void	print_strcmp(char *string1, char *string2)
 	printf("\n");
 }
 
+void	print_strdup(char *string)
+{	
+	char	*ret;
+
+	ret = strdup(string);
+	printf("\t\tstrdup ret:	'%s'\n", string);
+	free(ret);
+	ret = ft_strdup(string);
+	printf("\t\tft_strdup ret:	'%s'\n", string);
+	free(ret);
+}
+
+void	print_write(int fd, char *buff)
+{
+	int		ret;
+
+	printf("\t");
+	ret = write(fd, buff, strlen(buff));
+	printf("(%i)", ret);
+	write(1,"\n\t",2);
+	ret = ft_write(fd, buff, strlen(buff));
+	printf("(%i)", ret);
+}
 int		main()
 {
 
@@ -98,13 +121,19 @@ int		main()
 		system("clear");
 	#endif
 
-	char *prueba;
+	printf("TEST FT_STRDUP\n");
+	print_strdup("pene");
+	print_strdup(string);
+	print_strdup("");
 
-	prueba = ft_strdup("pene");
-	printf("%s", prueba);
-	prueba = ft_strdup(string);
-	printf("%s", prueba);
+	#ifndef DEBUG
+		getchar();
+		system("clear");
+	#endif
 
+	printf("TEST FT_WRITE");
+	print_write(1,"holis");
+	
 	#ifndef DEBUG
 		getchar();
 		system("clear");
