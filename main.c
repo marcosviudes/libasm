@@ -6,7 +6,7 @@
 /*   By: mviudes <mviudes@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:14:04 by mviudes           #+#    #+#             */
-/*   Updated: 2021/03/02 12:02:39 by mviudes          ###   ########.fr       */
+/*   Updated: 2021/03/04 14:00:08 by mviudes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ int		main()
 
 	printf("TEST FT_STRCMP\n");
 	print_strcmp(string, empty);
+	print_strcmp(empty, string);
+	print_strcmp("iguales", "");
+	print_strcmp("", "iguales");
 	print_strcmp(string, "asdfghijklmnopqrstuvwxyz0123456789");
 	print_strcmp(buff,string);
 	print_strcmp(string, "pene");
@@ -132,7 +135,7 @@ int		main()
 	#endif
 
 	printf("TEST FT_WRITE");
-	print_write(1,"holis");
+	print_write(1,"");
 	
 	#ifndef DEBUG
 		getchar();

@@ -52,7 +52,7 @@ run:	test
 	@echo "Running test\n"
 	@clear echo "\n"
 	@./test
-debug:
+debug: $(NAME)
 	@$(CC) $(DFLAGS) $(NAME) $(MAIN) -o $(TEST_NAME) -D DEBUG=1
 re: fclean all
 
