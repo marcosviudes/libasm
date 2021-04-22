@@ -5,6 +5,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <errno.h>
+#include <fcntl.h>
 
 void	ft_bzero(char *buffer, int size);
 int		ft_strlen(char	const *str);
@@ -18,4 +19,5 @@ void	print_strlen(char* string);
 void	print_strcpy(char* dest, char *src);
 void	print_strcmp(char *string1, char *string2);
 void	print_strdup(char *string);
+int		test_read();
 #endif

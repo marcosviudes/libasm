@@ -6,11 +6,44 @@
 /*   By: mviudes <mviudes@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:14:04 by mviudes           #+#    #+#             */
-/*   Updated: 2021/03/04 14:00:08 by mviudes          ###   ########.fr       */
+/*   Updated: 2021/04/22 20:49:52 by mviudes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"libasm.h"
+
+int test_read()
+{
+	char *buff[40];
+	int fd;
+	char file[] = "read_test1.txt";
+	errno = 0;
+	memset(buff, '\0', sizeof(buff));
+
+	printf("\tEXPECTED RET: %zd\n", read(1, buff, 40));
+	printf("\tACTUAL RET: %zd\n", ft_read(1, buff, 40));
+	printf("\n");
+	printf("open file:\n");
+	fd = open(file, O_RDONLY);
+	printf("\tEXPECTED RET: %zd\n", read(fd, buff, 22));
+	printf("\tERRNO: %d\n", errno);
+	errno = 0;
+	close(fd);
+	fd = open(file, O_RDONLY);
+	printf("\tACTUAL RET: %zd\n", ft_read(fd, buff, 22));
+	printf("\tERRNO: %d\n", errno);
+	close(fd);
+	errno = 0;
+	printf("\n");
+	printf("Errno Test:\n");
+	printf("\tEXPECTED RET: %zd\n", read(-7, NULL, 40));
+	printf("\tERRNO: %d\n", errno);
+	errno = 0;
+	printf("\tACTUAL RET: %zd\n", ft_read(-7, NULL, 40));
+	printf("\tERRNO: %d\n", errno);
+	printf("\n\n");
+	return (0);
+}
 
 void ft_bzero(char *buffer, int size)
 {
@@ -70,12 +103,30 @@ void	print_write(int fd, char *buff)
 {
 	int		ret;
 
-	printf("\t");
+	errno = 0;
+	write(1, "\t", 1);
+	write(1, "write: ", 7);
 	ret = write(fd, buff, strlen(buff));
 	printf("(%i)", ret);
-	write(1,"\n\t",2);
+	printf("%i", errno);
+	
+	ft_write(1, "\t", 1);
+	ft_write(1, "my_write: ", 9);
 	ret = ft_write(fd, buff, strlen(buff));
 	printf("(%i)", ret);
+	printf("%i", errno);
+	ft_write(1, "\n",1);	
+}
+void	print_read()//(int fd, char *buff)
+{
+	int		ret;
+	char	*buff[40];
+
+	ft_bzero(buff,sizeof(buff));
+	errno = 0;
+	printf("EXPECTED RET: %zd\n", read(1, buff, 40));
+	printf("ACTUAL RET: %zd\n", ft_read(1, buff, 40));
+
 }
 int		main()
 {
@@ -99,8 +150,8 @@ int		main()
 	#endif
 	
 	printf("TEST FT_STRCPY\n");
-	print_strcpy(string, "pene");
-	print_strcpy("me cago en la puta", string);
+	print_strcpy(string, "HOLA");
+	print_strcpy("texto muy cristiano", string);
 	print_strcpy(empty, string);
 	print_strcpy(string, empty);
 //	print_strcpy(buff, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et");
@@ -117,7 +168,7 @@ int		main()
 	print_strcmp("", "iguales");
 	print_strcmp(string, "asdfghijklmnopqrstuvwxyz0123456789");
 	print_strcmp(buff,string);
-	print_strcmp(string, "pene");
+	print_strcmp(string, "texto");
 
 	#ifndef DEBUG
 		getchar();
@@ -125,7 +176,7 @@ int		main()
 	#endif
 
 	printf("TEST FT_STRDUP\n");
-	print_strdup("pene");
+	print_strdup("texto");
 	print_strdup(string);
 	print_strdup("");
 
@@ -134,20 +185,22 @@ int		main()
 		system("clear");
 	#endif
 
-	printf("TEST FT_WRITE");
+	write(1, "TEST FT_WRITE\n", 14);
+	print_write(1,"prueba");
 	print_write(1,"");
-	
+	print_write(69, "pnee");
+	print_write(1, "hola");
+	printf("\n");
+
+	//print_write(, "hola");
+	/*print_write(1,"hola");
+	print_write(1,"prueba2");*/
 	#ifndef DEBUG
 		getchar();
 		system("clear");
 	#endif
+	write(1, "TEST FT_READ\n", 14);
+	test_read();
 	return (0);
 }
 
-/*Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
- Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
- nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
- reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-  deserunt mollit anim id est laborum.*/
