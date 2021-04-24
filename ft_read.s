@@ -15,11 +15,9 @@
 	section	.text
 	extern ___error
 _ft_read:
-;	mov	r8, rdx
 	mov	rax, 0x2000003
 	syscall
 	jc	error
-;	mov	rax,r8
 	ret
 error:
 	push rax
