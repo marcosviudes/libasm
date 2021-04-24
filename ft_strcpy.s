@@ -15,7 +15,6 @@ global		_ft_strcpy
 section .text
 
 _ft_strcpy:
-;	mov	rdi, 0
 	mov rcx, 0
 _while:
 	mov	dl, BYTE [rsi + rcx]
